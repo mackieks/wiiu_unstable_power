@@ -7,25 +7,19 @@ Keep in mind boot0 only supports SDSC cards, so SD cards with more than 2GB won'
 
 ## Compatible Hardware
 
-In theory this should work with any micro controller running MicroPython. But even if your Micro controller doesn't have Micropython, the code should be straight forward to port.
-
-You might have adjust the GPIO
-
-So far it was tested with:
-
-- Raspberry Pico V1
+- Raspberry Pico 1
 
 ## How to use
 
-1. Connect GND and TP73 to the micro controller. Make sure to have the right pin configured in the script (the one you connected TP73 to, by default 13,14,15).
+1. Connect one or more of Pico GPIOs 14, 15, 16 and 17 to TP73. Connect GND from the Pico to the Wii U.
 2. Put in a SD card prepared with the SD boot1 and a payload.
-3. Run the main.py on the micro controller. Either by pasting the code in the serial terminal or by uploading it with rshell.
-4. Try turning on the console
+3. Put the Pico into bootsel mode and drag and drop the UF2 onto it. The LED should start blinking
+4. Power on the Wii U
 
 ## Troubleshooting
 
-When running on a Raspberry Pi Pico, then the LED on the Pico should flicker, since the signal is also mirrored there (GPIO25). If it doesn't, make sure the code is running. If you just pasted it into the terminal, you might need to press enter again. While running it will also print 0 to the terminal.
+When running on a Raspberry Pi Pico, then the LED on the Pico should flicker, since the signal is also mirrored there (GPIO25). 
 
-If the console boots normally, then it didn't work. Make sure both GND and one of the outputting GPIOs (by default 13,14,15) is connected to TP73 properly. If it is still not working then you can try to adjust the parameter of the `run_timings` up.
+If the console boots normally, then it didn't work. Make sure both GND and one of the outputting GPIOs (by default 14, 15, 16 and 17) is connected to TP73 properly. Consoles with bottom side RTCs seem less compatible for the time being
 
 If the console doesn't turn on but stays on the red LED, then UNSTBL_PWR worked, but the SD card isn't bootable. Either it is incompatible (>2GB) or it doesn't have the correct boot1 flashed or it makes bad contact. Even if it looks like it is off, it is running and you should unplug the power to reset and make sure it doesn't overheat.
